@@ -1,0 +1,18 @@
+package edu.kh.jdbc.common;
+
+import java.util.Properties;
+
+public class LoadXMLFile {
+
+	public static void main(String[] args) {
+		
+		// XML 파일 읽어오기 (Properties, FIleInputStream)
+		
+		try {
+			Properties prop = new Properties();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

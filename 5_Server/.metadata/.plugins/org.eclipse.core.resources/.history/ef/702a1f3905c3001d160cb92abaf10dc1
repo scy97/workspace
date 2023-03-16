@@ -1,0 +1,26 @@
+package edu.kh.jdbc.common;
+
+import java.util.Properties;
+import java.util.Scanner;
+
+public class CreateXMLFile {
+
+	public static void main(String[] args) {
+		
+		// * Properties 컬렉션 객체
+		// - Map의 후손 클래스
+		// - Key, Value 모두 String 형식
+		// - XML 파일 읽고, 쓰는데 특화된 메서드 제공
+		
+		Scanner sc = new Scanner(System.in);
+		
+		// Properties 객체 생성
+		Properties prop = new Properties();
+		
+		System.out.println("생성할 파일 이름 : ");
+		String fileName = sc.nextLine();
+		
+		
+	}
+
+}
