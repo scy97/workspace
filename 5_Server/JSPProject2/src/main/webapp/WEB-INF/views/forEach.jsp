@@ -47,7 +47,7 @@
     <h3>객체배열 / 컬렉션 반복 접근하기</h3>
 
     <table border="1">
-        <c:forEach var="person" items="${request.pList}">
+        <c:forEach var="person" items="${requestScope.pList}">
             <tr>
                 <th>${person.name}</th>
                 <td>${person.age}</td>

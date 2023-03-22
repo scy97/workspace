@@ -44,7 +44,7 @@ public class TestDAO {
 		try {
 			String sql = prop.getProperty("select");
 			
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.PreparedStatement(sql);
 			
 			pstmt.setString(1, table_name);
 			
