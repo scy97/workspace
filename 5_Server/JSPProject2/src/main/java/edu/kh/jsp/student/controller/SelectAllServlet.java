@@ -17,7 +17,7 @@ import edu.kh.jsp.student.model.vo.Student;
 public class SelectAllServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 서비스 객체 상성
+		// 서비스 객체 생성
 		StudentService service = new StudentService();
 		
 		try {

@@ -56,6 +56,7 @@ public class SearchDAO {
 
 		} finally {
 			close(rs);
+			close(stmt);
 			close(pstmt);
 		}
 		
