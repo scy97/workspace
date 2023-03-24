@@ -56,6 +56,7 @@ function load() {
 
                     const td1 = document.createElement("td");
                     td1.innerText = this.memberNo;
+                    td1.no = "no";
 
                     const td2 = document.createElement("td");
                     td2.innerText = this.memberEmail;
@@ -63,7 +64,12 @@ function load() {
                     const td3 = document.createElement("td");
                     td3.innerText = this.memberNickname;
 
-                    tr.append(td1, td2, td3);
+                    const remove = document.createElement("button");
+                    remove.setAttribute("type", "button");
+                    remove.id = "remove";
+                    remove.innerText = "삭제";
+
+                    tr.append(td1, td2, td3, remove);
 
                     content.append(tr);
                 }
@@ -81,7 +87,7 @@ window.onload = load;
 
 setInterval(() => {
     load()
-}, 3000);
+}, 10000);
 
 const input = document.querySelectorAll("input");
 
@@ -107,3 +113,9 @@ document.getElementById("input").addEventListener("click", function() {
     })
 });
 
+// document.getElementById("remove").addEventListener("click", function() {
+//     $.ajax({
+//         url: "member/remove",
+//         data: {""}
+//     })
+// });
