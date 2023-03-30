@@ -1,4 +1,4 @@
-package edu.kh.ajaxsearchall.member.controller;
+package edu.kh.community.member.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import edu.kh.ajaxsearchall.member.model.service.MemberService;
-import edu.kh.ajaxsearchall.member.model.vo.Member;
+import edu.kh.community.member.model.service.MemberService;
+import edu.kh.community.member.model.vo.Member;
 
 @WebServlet("/member/searchAll")
 public class SearchAllServlet extends HttpServlet {

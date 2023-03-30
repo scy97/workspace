@@ -5,10 +5,67 @@
 
 	<!-- 회원 정보 조회 -->
 	<entry key="selectOne">
-		SELECT MEMBER_EMAIL, MEMBER_NICK, MEMBER_TEL, MEMBER_ADDR,
+		SELECT MEMBER_EMAIL, MEMBER_NICK, MEMBER_TEL,
+		MEMBER_ADDR,
 		TO_CHAR(ENROLL_DT, 'YYYY"년" MM"월" DD"일"') AS ENROLL_DATE
 		FROM MEMBER
 		WHERE MEMBER_EMAIL = ?
 		AND SECESSION_FL = 'N'
+	</entry>
+
+	<entry key="login">
+		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICK,
+		MEMBER_TEL, MEMBER_ADDR, PROFILE_IMG,
+		TO_CHAR(ENROLL_DT, 'YYYY-MM-DD
+		HH24:MI:SS') AS ENROLL_DT
+		FROM MEMBER
+		WHERE MEMBER_EMAIL = ?
+		AND
+		MEMBER_PW = ?
+		AND SECESSION_FL = 'N'
+	</entry>
+
+	<entry key="emailDupCheck">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE MEMBER_EMAIL = ?
+		AND
+		SECESSION_FL = 'N'
+	</entry>
+
+	<entry key="updateCertification">
+		UPDATE CERTIFICATION SET
+		C_NUMBER = ?,
+		ISSUE_DT = ?
+		SYSDATE
+		WHERE EMAIL = ?
+	</entry>
+
+	<entry key="insertCertification">
+		INSERT INTO CERTIFICATION
+		VALUES(?, ?, SYSDATE)
+	</entry>
+
+	<entry key="searchAll">
+		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICK
+		FROM
+		"MEMBER"
+	</entry>
+
+	<entry key="input">
+		INSERT INTO MEMBER
+		VALUES(SEQ_MEMBER_NO.NEXTVAL, ?, ?,
+		?, ?, ?,
+		NULL, DEFAULT, DEFAULT)
+	</entry>
+
+	<entry key="remove">
+		DELETE FROM "MEMBER"
+		WHERE MEMBER_NO = ?
+	</entry>
+
+	<entry key="updateProfileImage">
+		UPDATE MEMBER SET
+		PROFILE_IMG = ?
+		WHERE MEMBER_NO = ?
 	</entry>
 </properties>
