@@ -108,7 +108,7 @@
     </script>
 
     <!-- myPage.js 추가 -->
-    <script src="${contextPath}/resources/js/member/myPage.js"></script>
+    <script src="${contextPath}/resources/js/member/profile.js"></script>
 
 </body>
 </html>

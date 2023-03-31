@@ -140,13 +140,13 @@
                  </div>
  
                  <button type="submit" id="signUp-btn">가입하기</button>
- 
-             </form>
-             
-         </section>
- 
- 
-     </main>
+
+                 
+                </form>
+                
+            </section>
+
+        </main>
  
     <!-- footer include -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp" />

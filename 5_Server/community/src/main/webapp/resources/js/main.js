@@ -20,7 +20,6 @@ function load() {
 
                     const td1 = document.createElement("td");
                     td1.innerText = this.memberNo;
-                    td1.no = "no";
 
                     const td2 = document.createElement("td");
                     td2.innerText = this.memberEmail;
@@ -28,15 +27,11 @@ function load() {
                     const td3 = document.createElement("td");
                     td3.innerText = this.memberNickname;
 
-                    const remove = document.createElement("button");
-                    remove.setAttribute("type", "button");
-                    remove.id = "remove";
-                    remove.innerText = "삭제";
-
-                    tr.append(td1, td2, td3, remove);
+                    tr.append(td1, td2, td3);
 
                     content.append(tr);
                 }
+
             });
         },
 
@@ -57,20 +52,22 @@ const input = document.querySelectorAll("#inputData>input");
 
 console.log(input);
 
-document.getElementById("input").addEventListener("click", function() {
+document.getElementById("input").addEventListener("click", function () {
     $.ajax({
         url: "member/input",
-        data: {"email" : input[0].value, "pw" : input[1].value, 
-        "nickname" : input[2].value, "phone" : input[3].value, 
-        "addr" : input[4].value},
+        data: {
+            "email": input[0].value, "inputPw": input[1].value,
+            "nickname": input[2].value, "phone": input[3].value,
+            "addr": input[4].value
+        },
         type: "POST",
         dataType: "JSON",
-    
-        success: function(result) {
+
+        success: function (result) {
             console.log(result);
         },
-    
-        error: function() {
+
+        error: function () {
             console.log("fail");
             console.log("code : " + request.status);
         }
@@ -78,24 +75,24 @@ document.getElementById("input").addEventListener("click", function() {
 });
 
 // 회원 정보 조회 비동기 통신(AJAX)
-document.getElementById("select1").addEventListener("click", function() {
+document.getElementById("select1").addEventListener("click", function () {
     const input = document.getElementById("in1");
     const div = document.getElementById("result1");
 
     // AJAX 코드 작성(jQuery 방식)
     $.ajax({
         url: "member/selectOne",
-        data: {"memberEmail" : input.value}, 
+        data: { "memberEmail": input.value },
         type: "POST",
         dataType: "JSON", // dataType: 응답 데이터 형식을 지정
-                        // -> "JSON"으로 지정 시 자동으로 JS 객체로 변환
-        success: function(member) {
+        // -> "JSON"으로 지정 시 자동으로 JS 객체로 변환
+        success: function (member) {
             console.log(member);
-            
+
             // 1) div에 작성된 내용 모두 삭제
             div.innerHTML = "";
 
-            if(member != null){ // 회원 정보 존재 O
+            if (member != null) { // 회원 정보 존재 O
 
                 // 2) ul 요소 생성
                 const ul = document.createElement("ul");
@@ -138,7 +135,7 @@ document.getElementById("select1").addEventListener("click", function() {
             }
         },
 
-        error: function() {
+        error: function () {
             console.log("AJAX 에러 발생");
             console.log("상태코드 : " + request.status); // 404, 500
         }

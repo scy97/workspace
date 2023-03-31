@@ -2,14 +2,14 @@
 
 const inputImage = document.getElementById("input-image");
 
-if(inputImage != null) { // inputImage 요소가 화면에 존재할 때
+if (inputImage != null) { // inputImage 요소가 화면에 존재할 때
     // input type="file" 요소는 파일이 선택될 때 change 이벤트 발생
 
-    inputImage.addEventListener("change", function() {
+    inputImage.addEventListener("change", function () {
         // 파일 목록에서 첫번째 파일 객체를 선택
         // files : input type="file"만 사용가능한 속성으로
         // 선택된 파일 목록(배열)을 반환
-        
+
         // this : 이벤트가 발생한 요소 (input type="file")
         if (this.files[0] != undefined) { // 파일이 선택되었을 때
             const reader = new FileReader();
@@ -23,7 +23,7 @@ if(inputImage != null) { // inputImage 요소가 화면에 존재할 때
             // 읽어온 파일의 위치를 나타내는 URL이 포함된다.
             // -> 해당 URL을 이용해서 브라우저에서 이미지를 볼 수 있다.
 
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 // e : 이벤트 발생 객체
                 // e.target : 이벤트가 발생한 요소 -> FileReader
                 // e.target.result : FileReader가 읽어온 파일의 URL
@@ -42,13 +42,13 @@ if(inputImage != null) { // inputImage 요소가 화면에 존재할 때
 }
 
 // 프로필 이미지 옆 X버튼 클릭 시
-document.getElementById("delete-image").addEventListener("click", function() {
+document.getElementById("delete-image").addEventListener("click", function () {
     // 0 : 안눌러짐
     // 1 : 눌러짐
 
     const del = document.getElementById("delete");
-    
-    if(del.value == 0) { // 눌러지지 않은 경우
+
+    if (del.value == 0) { // 눌러지지 않은 경우
         // 1) 프로필 이미지를 기본 이미지로 변경
         document.getElementById("profile-image").setAttribute("src", contextPath + "/resources/images/user.png");
 

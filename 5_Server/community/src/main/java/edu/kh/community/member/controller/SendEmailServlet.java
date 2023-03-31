@@ -28,7 +28,8 @@ public class SendEmailServlet extends HttpServlet {
 
 		String subject = "[Commnity 프로젝트] 회원 가입 이메일 인증번호"; // 제목
 
-		String fromEmail = "scy7143@gmail.com"; // 보내는 사람으로 표시될 이메일 (이메일 따라서 안될수도 있음)
+		String fromEmail = ""; // 보내는 사람으로 표시될 이메일 (이메일 따라서 안될수도 있음)
+		// TODO 이메일
 		String fromUsername = "관리자"; // 보내는 사람 이름
 		String toEmail = inputEmail; // 받는사람, 콤마(,)로 여러개 나열 가능
 

@@ -49,12 +49,13 @@
                         <label>닉네임</label>
                         <input type="text" name="memberNickname"  id="memberNickname"  value="${loginMember.memberNickname}" maxlength="10">              
                     </div>
+                    <span class="myPage-message" id="nicknameMessage">영어/숫자/한글 2~10글자 사이로 작성해주세요.</span>
 
                     <div class="myPage-row">
                         <label>전화번호</label>
                         <input type="text" name="memberTel"  id="memberTel" value="${loginMember.memberTel}" maxlength="11">
                     </div>
-                    
+                    <span class="myPage-message" id="telMessage">전화번호를 입력해주세요.(- 제외)</span>                   
                     
 
                     <!-- 주소 -->			<!--  fn:split(문자열, '구분자')  -->
@@ -88,8 +89,10 @@
 
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
     <!-- myPage.js 추가 -->
-    <script src="${contextPath}/resources/js/member/myPage.js"></script>
+    <script src="${contextPath}/resources/js/member/info.js"></script>
 
 </body>
 </html>

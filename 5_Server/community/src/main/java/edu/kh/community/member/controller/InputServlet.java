@@ -19,12 +19,12 @@ public class InputServlet extends HttpServlet {
 		MemberService service = new MemberService();
 		try {
 			String email = req.getParameter("email");
-			String pw = req.getParameter("pw");
+			String inputPw = req.getParameter("inputPw");
 			String name = req.getParameter("nickname");
 			String phone = req.getParameter("phone");
 			String addr = req.getParameter("addr");
 						
-			int input = service.input(email, pw, name, phone, addr);
+			int input = service.input(email, inputPw, name, phone, addr);
 			
 			new Gson().toJson(input, resp.getWriter());
 					
