@@ -26,7 +26,6 @@ public class MyPageChangePwServlet extends HttpServlet {
 		try {
 			String currentPw = req.getParameter("currentPw");
 			String newPw = req.getParameter("newPw");
-			String newPwConfirm = req.getParameter("newPwConfirm");
 			int result = 0;
 
 			HttpSession session = req.getSession();
@@ -36,21 +35,24 @@ public class MyPageChangePwServlet extends HttpServlet {
 
 			MemberService service = new MemberService();
 
-			int checkPw = service.checkPw(memberNo);
-
-			if (newPw == newPwConfirm && checkPw > 0) {
-				result = service.changePw(memberNo, newPw);
+			String checkPw = service.checkPw(memberNo);
+						
+			if(checkPw.equals(currentPw) && !checkPw.equals(newPw)) {
+				result = service.changePw(memberNo, newPw);	
+			} else if(checkPw.equals(newPw)) {
+				session.setAttribute("message", "변경할 비밀번호가 현재 비밀번호와 일치합니다.");
 			} else {
-
+				session.setAttribute("message", "현재 비밀번호가 틀립니다.");
 			}
-
+			
 			if (result > 0) {
-
-			} else {
-
+				session.setAttribute("message", "비밀번호가 변경되었습니다.");
 			}
-		} catch (Exception e) {
+			
+			resp.sendRedirect("changePw");
 
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

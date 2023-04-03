@@ -30,12 +30,9 @@ public class NicknameDupCheckServlet extends HttpServlet{
 			
 			resp.getWriter().print(result);
 			
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-	
 	}
 	
 	

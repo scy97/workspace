@@ -217,10 +217,23 @@ public class MemberService {
 		return result;
 	}
 
-	public int checkPw(int memberNo) throws Exception {
+	public String checkPw(int memberNo) throws Exception {
 		Connection conn = getConnection();
 		
-		int result = dao.checkPw(conn, memberNo);
+		String result = dao.checkPw(conn, memberNo);
+		
+		return result;
+	}
+
+	public int secession(int memberNo) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.secession(conn, memberNo);
+		
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
 		
 		return result;
 	}

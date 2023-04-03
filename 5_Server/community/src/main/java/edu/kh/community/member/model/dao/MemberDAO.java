@@ -393,8 +393,8 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int checkPw(Connection conn, int memberNo) throws Exception {
-		int result = 0;
+	public String checkPw(Connection conn, int memberNo) throws Exception {
+		String result = null;
 
 		try {
 			String sql = prop.getProperty("checkPw");
@@ -404,8 +404,9 @@ public class MemberDAO {
 			pstmt.setInt(1, memberNo);
 
 			rs = pstmt.executeQuery();
+			
 			if (rs.next()) {
-				result = rs.getInt(1);
+				result = rs.getString(1);
 			}
 			
 		} finally {
@@ -413,6 +414,24 @@ public class MemberDAO {
 			close(rs);
 		}
 
+		return result;
+	}
+
+	public int secession(Connection conn, int memberNo) throws Exception {
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("secession");
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			
+			result = pstmt.executeUpdate();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

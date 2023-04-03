@@ -49,16 +49,19 @@
                         <label>현재 비밀번호</label>
                         <input type="password" name="currentPw" id="currentPw" maxlength="30">              
                     </div>
+                    <span class="myPage-message" id="currentPwMessage">현재 비밀번호를 입력해주세요.</span>
 
                     <div class="myPage-row">
                         <label>새 비밀번호</label>
                         <input type="password" name="newPw" maxlength="30">              
                     </div>
+                    <span class="myPage-message" id="newPwMessage">영어, 숫자, 특수문자(!,@,#,-,_) 6~30글자 사이로 작성해주세요.</span>
 
                     <div class="myPage-row">
                         <label>새 비밀번호 확인</label>
                         <input type="password" name="newPwConfirm" maxlength="30">              
                     </div>
+                    <span class="myPage-message" id="newPwConfirmMessage"></span>
 
                     <button id="info-update-btn">변경하기</button>
 
