@@ -1,5 +1,7 @@
 package com.scy.todo.list.model.service;
 
-public class TodoService {
+import com.scy.todo.list.model.dao.TodoDAO;
 
+public class TodoService {
+	private TodoDAO dao = new TodoDAO();
 }

@@ -44,14 +44,16 @@ public class MyPageSecessionServlet extends HttpServlet {
 			}
 			
 			if(result > 0) {
+				session.invalidate();
+				session = req.getSession();
 				session.setAttribute("message", "회원 탈퇴되었습니다.");
 				resp.sendRedirect(req.getContextPath());
-				session.invalidate();
 			}
 			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 }
