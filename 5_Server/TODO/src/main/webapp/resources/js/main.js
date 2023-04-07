@@ -1,70 +1,86 @@
-const input_todo = document.getElementById("input_todo");
-const sendBtn = document.getElementById("sendBtn");
+const inputText = document.getElementById("inputText");
+const addBtn = document.getElementById("addBtn");
 const all = document.getElementById("all");
 const doing = document.getElementById("doing");
 const done = document.getElementById("done");
 const removeAll = document.getElementById("removeAll");
-const historyList2 = document.getElementById("history").children;
 
 let todoListNum = 0;
 
-input_todo.addEventListener("input", (e) => {
-    e.target.style.height = "1px";
-    e.target.style.height = (event.target).scrollHeight + "px";
+function addList(text) {
+    todoListNum++;
+        const div = document.createElement("div");
+        const createListCheckBtn = document.createElement("input");
+        const createListCheckLabel = document.createElement("label");
+        const createTodoText = document.createElement("div");
+        const createListRemoveBtn = document.createElement("div");
+
+        createListCheckBtn.setAttribute("type", "checkbox");
+        createListCheckBtn.id = "listCheckBtn" + todoListNum;
+        createListCheckBtn.classList.add("listCheckBtn");
+        createListCheckLabel.setAttribute("for", createListCheckBtn.id);
+
+        createTodoText.classList.add("todoText");
+        createListRemoveBtn.classList.add("listRemoveBtn");
+
+        createTodoText.innerText = text;
+
+        div.append(createListCheckBtn, createListCheckLabel, createTodoText, createListRemoveBtn);
+
+        document.getElementById("historyList").append(div);
+}
+
+inputText.addEventListener("input", (e) => {
+    e.target.style.height = "27px";
+    e.target.style.height = (e.target).scrollHeight + "px";
 });
 
 window.addEventListener("resize", () => {
-    input_todo.style.height = "1px";
-    input_todo.style.height = input_todo.scrollHeight + "px";
+    inputText.style.height = "27px";
+    inputText.style.height = inputText.scrollHeight + "px";
 });
 
-sendBtn.addEventListener("click", () => {
-    todoListNum++;
-    const div = document.createElement("div");
-    const createlistCheckBtn = document.createElement("input");
-    const createlistCheckLabel = document.createElement("label");
-    const createtodoText = document.createElement("div");
-    const createlistRemoveBtn = document.createElement("div");
-    const createlistRemoveIcon = document.createElement("i");
-    
-    createlistCheckBtn.setAttribute("type", "checkbox");
-    createlistCheckBtn.classList.add("listCheckBtn");
-    createlistCheckBtn.id = "listCheckBtn" + todoListNum;
-    createlistCheckBtn.ariaLabel = "check";
-    createlistCheckLabel.setAttribute("for", createlistCheckBtn.id);
+addBtn.addEventListener("click", () => {
+    inputText.focus();
+    if ((inputText.value).trim().length > 0) {
 
-    div.classList.add("list");
-    createtodoText.classList.add("todoText");
-    createlistRemoveBtn.classList.add("listRemoveBtn");
-    createlistRemoveIcon.classList.add("fa-solid", "fa-trash");
-    
-    createlistRemoveBtn.append(createlistRemoveIcon);
-    
-    createtodoText.innerText = document.getElementById("input_todo").value;
-    
-    div.append(createlistCheckBtn, createlistCheckLabel, createtodoText, createlistRemoveBtn);
-    
-    document.getElementById("history").append(div);
+        $.ajax({
+            url: "list/add",
+            data: {"inputText": inputText.value},
 
-    const listRemoveBtn = document.getElementsByClassName("listRemoveBtn");
-    for (i of listRemoveBtn) {
-        i.addEventListener("click", function() {
-            this.parentElement.remove();
+            success: function() {
+                console.log("asd");
+            },
 
-            const historyList = document.getElementById("history").children;
-            listCount.innerText = historyList.length + "개";
-        });
+            error: function() {
+                console.log("AJAX 에러 발생");
+                console.log("상태코드 : " + request.status);
+            }
+        })
+
+        const listRemoveBtn = document.getElementsByClassName("listRemoveBtn");
+        for (i of listRemoveBtn) {
+            i.addEventListener("click", function () {
+                this.parentElement.remove();
+
+                const historyList = document.getElementById("historyList").children;
+                listCount.innerText = historyList.length + "개";
+            });
+        }
+
+        const historyList = document.getElementById("historyList").children;
+        listCount.innerText = historyList.length + "개";
+    } else {
+        alert("해야 할 일을 입력해주세요.");
+        inputText.value = null;
     }
-   
-    const historyList = document.getElementById("history").children;
-    listCount.innerText = historyList.length + "개";
 });
 
 removeAll.addEventListener("click", () => {
-    const history = document.getElementById("history");
+    const history = document.getElementById("historyList");
     history.replaceChildren();
 
-    const historyList = document.getElementById("history").children;
+    const historyList = document.getElementById("historyList").children;
     listCount.innerText = historyList.length + "개";
 });
 
@@ -73,9 +89,9 @@ all.addEventListener("click", () => {
 });
 
 doing.addEventListener("click", () => {
-    console.log(historyList2);
+
 });
 
 done.addEventListener("click", () => {
-    
+
 });

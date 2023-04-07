@@ -3,4 +3,15 @@
 <properties>
 	<comment>list-sql.xml</comment>
 
+	<entry key="addList">
+		INSERT INTO TODO_LIST
+		VALUES(SEQ_TODO_LIST_NO.NEXTVAL,
+		?, DEFAULT, DEFAULT, '1')
+	</entry>
+
+	<entry key="selectAll">
+		SELECT LIST_NO ,LIST_TEXT
+		FROM TODO_LIST
+		WHERE MEMBER_NO = 1
+	</entry>
 </properties>
