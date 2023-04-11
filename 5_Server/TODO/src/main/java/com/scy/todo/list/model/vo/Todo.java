@@ -17,4 +17,11 @@ public class Todo {
 	private String listCheck;
 	private String enrollDate;
 	private int userNo;
+	
+	public Todo(int listNo, String listText, String listCheck) {
+		super();
+		this.listNo = listNo;
+		this.listText = listText;
+		this.listCheck = listCheck;
+	}
 }

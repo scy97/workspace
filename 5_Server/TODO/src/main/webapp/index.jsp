@@ -58,8 +58,6 @@
 				<div id="all">전체</div>
 				<div id="doing">진행중</div>
 				<div id="done">완료</div>
-
-				<div id="removeAll">전체 삭제</div>
 			</section>
 		</section>
 	</main>

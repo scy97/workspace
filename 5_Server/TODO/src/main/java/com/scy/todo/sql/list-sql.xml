@@ -9,9 +9,22 @@
 		?, DEFAULT, DEFAULT, '1')
 	</entry>
 
-	<entry key="selectAll">
-		SELECT LIST_NO ,LIST_TEXT
+	<entry key="loadList">
+		SELECT LIST_NO, LIST_TEXT, LIST_CHECK
 		FROM TODO_LIST
 		WHERE MEMBER_NO = 1
+	</entry>
+
+	<entry key="remove">
+		DELETE
+		FROM TODO_LIST
+		WHERE MEMBER_NO = 1
+		AND LIST_NO = ?
+	</entry>
+
+	<entry key="check">
+		UPDATE TODO_LIST SET
+		LIST_CHECK = ?
+		WHERE LIST_NO = ?
 	</entry>
 </properties>

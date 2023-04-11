@@ -10,20 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.scy.todo.list.model.service.TodoService;
 
-@WebServlet("/list/add")
-public class AddListServlet extends HttpServlet {
+@WebServlet("/list/remove")
+public class RemoveListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String inputText = req.getParameter("inputText");
-		
-		System.out.println(inputText);
-		
-		TodoService service = new TodoService();
-				
-		int result = 0;
-		
 		try {
-			result = service.addList(inputText);
+			TodoService service = new TodoService();
+			
+			int listNo = Integer.parseInt(req.getParameter("listNo"));
+			
+			int result = service.removeList(listNo);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
