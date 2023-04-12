@@ -3,15 +3,15 @@
 
         <header>
             <section id="menu">
-                <img src="resources/images/bars-solid.svg" id="menuBtn">
+                <img src="${contextPath}/resources/images/bars-solid.svg" id="menuBtn">
             </section>
 
             <section id="logo">
-                <a href="#"> <img src="resources/images/check-solid.svg"> <span>ToDo</span>
+                <a href="#"> <img src="${contextPath}/resources/images/check-solid.svg"> <span>ToDo</span>
                 </a>
             </section>
 
             <section id="search">
-                <img src="resources/images/magnifying-glass-solid.svg" id="searchBtn">
+                <img src="${contextPath}/resources/images/magnifying-glass-solid.svg" id="searchBtn">
             </section>
         </header>

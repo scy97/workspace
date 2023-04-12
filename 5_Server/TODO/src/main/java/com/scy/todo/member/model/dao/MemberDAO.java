@@ -36,13 +36,22 @@ public class MemberDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, member.getMemberPw());
 			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				loginMember = new Member();
+				loginMember.setMemberNo(rs.getInt(1));
+				loginMember.setMemberId(rs.getString(2));
+				loginMember.setMemberName(rs.getString(3));
+				loginMember.setEnrollDate(rs.getString(4));
+			}
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
-		
 		return loginMember;
 	}
-	
 }

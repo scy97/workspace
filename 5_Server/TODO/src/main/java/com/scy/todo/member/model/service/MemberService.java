@@ -9,7 +9,7 @@ import com.scy.todo.member.model.vo.Member;
 public class MemberService {
 	private MemberDAO dao = new MemberDAO();
 
-	public Member login(Member member) {
+	public Member login(Member member) throws Exception {
 		Connection conn = getConnection();
 		
 		Member loginMember = dao.login(conn, member);
