@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ToDo Lsit</title>
+<title>ToDo List</title>
 
 <link rel="stylesheet" href="resources/css/main.css">
 
@@ -18,22 +18,17 @@
 </head>
 
 <body>
-	<header>
-		<section id="menu">
-			<img src="resources/images/bars-solid.svg" id="menuBtn">
-		</section>
-
-		<section id="logo">
-			<a href="#"> <img src="resources/images/check-solid.svg"> <span>ToDo</span>
-			</a>
-		</section>
-
-		<section id="search">
-			<img src="resources/images/magnifying-glass-solid.svg" id="searchBtn">
-		</section>
-	</header>
+	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 	<main>
+		<section id="loginSection">
+			<form action="memeber/login" method="post">
+				<input type="text" id="inputId" placeholder="아이디">
+				<input type="password" id="inputPw" placeholder="패스워드">
+				<button>로그인</button>
+			</form>
+		</section>
+
 		<section id="content">
 			<section>
 					<textarea id="inputText" name="inputText" rows="1"
@@ -62,7 +57,7 @@
 		</section>
 	</main>
 
-	<footer> footer </footer>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="

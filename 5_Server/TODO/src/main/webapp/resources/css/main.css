@@ -164,24 +164,19 @@ main {
     text-align: center;
     border: 2px solid cornflowerblue;
     border-radius: 7px;
+    cursor: pointer;
 }
 
 #doing {
     flex-basis: 30%;
     text-align: center;
+    border-radius: 7px;
     cursor: pointer;
 }
 
 #done {
     flex-basis: 25%;
     text-align: center;
-    cursor: pointer;
-}
-
-#removeAll {
-    flex-basis: 10%;
-    text-align: center;
-    border: 2px solid cornflowerblue;
     border-radius: 7px;
     cursor: pointer;
 }

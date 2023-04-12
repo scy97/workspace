@@ -21,13 +21,15 @@ public class TodoService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
-	public List<Todo> loadList() throws Exception {
+	public List<Todo> loadList(String option) throws Exception {
 		Connection conn = getConnection();
 		
-		List<Todo> todoList = dao.loadList(conn);
+		List<Todo> todoList = dao.loadList(conn, option);
 		
 		close(conn);
 		
@@ -45,6 +47,8 @@ public class TodoService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result;
 	}
 
@@ -58,6 +62,9 @@ public class TodoService {
 		} else {
 			rollback(conn);
 		}
+		
+		close(conn);
+		
 		return result;
 	}
 }

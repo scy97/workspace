@@ -13,13 +13,15 @@ import com.google.gson.Gson;
 import com.scy.todo.list.model.service.TodoService;
 import com.scy.todo.list.model.vo.Todo;
 
-@WebServlet("/list/all")
+@WebServlet("/list/load")
 public class LoadListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			TodoService service = new TodoService();
-			List<Todo> todoList = service.loadList();
+			
+			String option = req.getParameter("option");
+			List<Todo> todoList = service.loadList(option);
 			
 			new Gson().toJson(todoList, resp.getWriter());
 		} catch (Exception e) {

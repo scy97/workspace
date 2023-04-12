@@ -47,7 +47,8 @@ function load(option) {
     console.log("fn loaded");
 
     $.ajax({
-        url: "list/" + option,
+        url: "list/load",
+        data: {"option": option},
         dataType: "JSON",
 
         success: function (list) {
@@ -150,17 +151,21 @@ addBtn.addEventListener("click", () => {
 
 all.addEventListener("click", () => {
     load("all");
+    all.style.border = "2px solid cornflowerblue";
+    doing.style.border = "none";
+    done.style.border = "none";
 });
 
 doing.addEventListener("click", () => {
-    // $.ajax({
-    //     url: "list/doing",
-    //     dataType: "JSON",
-
-
-    // })
+    load("doing");
+    doing.style.border = "2px solid cornflowerblue";
+    all.style.border = "none";
+    done.style.border = "none";
 });
 
 done.addEventListener("click", () => {
-
+    load("done");
+    done.style.border = "2px solid cornflowerblue";
+    all.style.border = "none";
+    doing.style.border = "none";
 });

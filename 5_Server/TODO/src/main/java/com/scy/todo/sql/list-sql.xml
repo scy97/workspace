@@ -27,4 +27,11 @@
 		LIST_CHECK = ?
 		WHERE LIST_NO = ?
 	</entry>
+
+	<entry key="optionLoad">
+		SELECT LIST_NO, LIST_TEXT, LIST_CHECK
+		FROM TODO_LIST
+		WHERE MEMBER_NO = 1
+		AND LIST_CHECK = ?
+	</entry>
 </properties>

@@ -53,20 +53,40 @@ public class TodoDAO {
 		return result;
 	}
 
-	public List<Todo> loadList(Connection conn) throws Exception {
+	public List<Todo> loadList(Connection conn, String option) throws Exception {
 		List<Todo> todoList = new ArrayList<>();
-
+		String sql = null;
+		
 		try {
-			String sql = prop.getProperty("loadList");
-			pstmt = conn.prepareStatement(sql);
+			
+			switch (option) {
+			case "all":
+				sql = prop.getProperty("loadList");
+				pstmt = conn.prepareStatement(sql);
+				break;
+				
+			case "doing":
+				sql = prop.getProperty("optionLoad");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "N");
+				break;
+				
+			case "done":
+				sql = prop.getProperty("optionLoad");
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, "Y");
+				break;
+			}
+			
 
 			rs = pstmt.executeQuery();
 
-			while (rs.next()) {
-				int listNo = rs.getInt("LIST_NO");
-				String listText = rs.getString("LIST_TEXT");
-				String listCheck = rs.getString("LIST_CHECK");
-				todoList.add(new Todo(listNo, listText, listCheck));
+			while (rs.next()) {			
+				Todo todo = new Todo();
+				todo.setListNo(rs.getInt("LIST_NO"));
+				todo.setListText(rs.getString("LIST_TEXT"));
+				todo.setListCheck(rs.getString("LIST_CHECK"));
+				todoList.add(todo);
 			}
 		} finally {
 			close(pstmt);
