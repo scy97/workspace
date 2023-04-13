@@ -33,16 +33,6 @@ public class LoginServlet extends HttpServlet {
 				
 				session.setMaxInactiveInterval(3600);
 				
-//				Cookie c = new Cookie("saveId", req.getParameter("inputId"));
-//				
-//				if(req.getParameter("saveId") != null) {
-//					c.setMaxAge(60 * 60 * 24 * 30);
-//				} else {
-//					c.setMaxAge(0);
-//				}
-//				
-//				c.setPath(req.getContextPath());
-//				resp.addCookie(c);
 			} else {
 				session.setAttribute("message", "로그인 실패");
 			}

@@ -7,7 +7,7 @@
             </section>
 
             <section id="logo">
-                <a href="#"> <img src="${contextPath}/resources/images/check-solid.svg"> <span>ToDo</span>
+                <a href="${contextPath}/main"> <img src="${contextPath}/resources/images/check-solid.svg"> <span>ToDo</span>
                 </a>
             </section>
 

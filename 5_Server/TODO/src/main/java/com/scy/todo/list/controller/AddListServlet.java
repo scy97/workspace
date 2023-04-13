@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.scy.todo.list.model.service.TodoService;
 
@@ -23,7 +24,16 @@ public class AddListServlet extends HttpServlet {
 		int result = 0;
 		
 		try {
+			HttpSession session = req.getSession();
+			
 			result = service.addList(inputText);
+			
+			if (result == 0) {
+				session.setAttribute("message", "리스트 추가실패");
+			}
+			
+			resp.getWriter().print(result);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -48,7 +48,7 @@ function load(option) {
 
     $.ajax({
         url: "list/load",
-        data: {"option": option},
+        data: { "option": option },
         dataType: "JSON",
 
         success: function (list) {
@@ -130,9 +130,11 @@ addBtn.addEventListener("click", () => {
             url: "list/add",
             data: { "inputText": inputText.value },
 
-            success: function () {
-                console.log("asd");
-                load("all");
+            success: function (result) {
+                if (result > 0) {
+                    console.log("asd");
+                    load("all");
+                }
             },
 
             error: function () {

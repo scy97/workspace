@@ -6,18 +6,21 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>ToDo List</title>
         <link rel="stylesheet" href="resources/css/index.css">
     </head>
 
     <body>
         <main>
             <section id="loginSection">
-                <div>login</div>
+                <article id="logo">
+                    <img src="${contextPath}/resources/images/check-solid.svg">
+                    <span>ToDo</span>
+                </article>
 
                 <form action="member/login" method="post" class="loginForm">
-                    <input type="text" id="inputId" name="inputId" placeholder="아이디">
-                    <input type="password" id="inputPw" name="inputPw" placeholder="패스워드">
+                    <input type="text" name="inputId" id="inputId" placeholder="아이디" autofocus required>
+                    <input type="password" name="inputPw" id="inputPw" placeholder="패스워드" required>
 
                     <article id="signUp-find-area">
                         <div>
@@ -33,6 +36,9 @@
                 </form>
             </section>
         </main>
+
+        <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
     </body>
 
     </html>

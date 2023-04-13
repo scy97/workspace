@@ -23,7 +23,7 @@
 	<main>
 		<section id="content">
 			<section>
-					<textarea id="inputText" name="inputText" rows="1"
+					<textarea name="inputText" id="inputText" rows="1"
 						placeholder="해야 할 일을 입력해주세요." autofocus></textarea>
 					<button id="addBtn"></button>
 			</section>
