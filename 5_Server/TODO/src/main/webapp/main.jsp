@@ -12,9 +12,6 @@
 <title>ToDo List</title>
 
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css">
-
-<script src="https://kit.fontawesome.com/144bd71f16.js"
-	crossorigin="anonymous"></script>
 </head>
 
 <body>

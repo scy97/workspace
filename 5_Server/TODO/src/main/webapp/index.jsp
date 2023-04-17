@@ -24,9 +24,9 @@
 
                     <article id="signUp-find-area">
                         <div>
-                            <a href="#">회원가입</a>
+                            <a href="${pageContext.request.contextPath}/member/signUp">회원가입</a>
                             <span>&nbsp;|&nbsp;</span>
-                            <a href="#">ID/PW찾기</a>
+                            <a href="${pageContext.request.contextPath}/member/findMember">ID/PW찾기</a>
                         </div>
 
                         <div>

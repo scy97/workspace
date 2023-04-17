@@ -54,4 +54,24 @@ public class MemberDAO {
 		}
 		return loginMember;
 	}
+
+	public int signUp(Connection conn, Member mem) throws Exception {
+		int result = 0;
+		
+		try {
+			String sql = prop.getProperty("signUp");
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mem.getMemberId());
+			pstmt.setString(2, mem.getMemberPw());
+			pstmt.setString(3, mem.getMemberMail());
+			pstmt.setString(4, mem.getMemberName());
+			
+			result = pstmt.executeUpdate();
+			
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

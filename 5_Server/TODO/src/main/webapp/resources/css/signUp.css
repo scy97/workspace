@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+}
+
+main {
+    margin: auto;
+    background-color: #eeeeee;
+    min-width: 450px;
+    width: 50vw;
+    height: fit-content;
+}
+
+main>* {
+    margin: 20px;
+}
+
+main>div {
+    font-size: 300%;
+    text-align: center;
+}
+
+.signUpForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.signUpForm * {
+    margin-block: 4px;
+}
+
+section {
+    display: flex;
+}
+
+.signUpForm>label {
+    display: block;
+    margin-top: 25px;
+    font-size : 18px;
+    font-weight: bold;
+}
+
+input {
+    flex-grow: 1;
+    outline: none;
+    height: 34px;
+    font-size: 18px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    height: 34px;
+    width: 130px;
+    padding-left: 0;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.signUpForm>div {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.signUpForm>button:last-child {
+    background-color: gray;
+    margin-top: 30px;
+    margin-left: 0;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}

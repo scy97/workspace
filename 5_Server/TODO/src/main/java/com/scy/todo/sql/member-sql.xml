@@ -2,13 +2,56 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<comment>member-sql.xml</comment>
-	
+
 	<entry key="login">
 		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, ENROLL_DT
 		FROM TODO_MEMBER
 		WHERE MEMBER_ID = ?
 		AND MEMBER_PW = ?
-		AND SECESSION_FL = 'N'
+		AND SECESSION_FL =
+		'N'
 	</entry>
 
+	<entry key="signUp">
+		INSERT INTO TODO_MEMBER
+		VALUES(SEQ_TODO_MEMBER_NO.NEXTVAL, ?, ?, ?, ?, DEFAULT, 'N')
+	</entry>
+
+	<entry key="mailDubCheck">
+		SELECT MEMBER_MAIL
+		FROM TODO_MEMBER
+		WHERE MEMBER_MAIL =
+		?
+	</entry>
+
+	<entry key="idDubCheck">
+		SELECT MEMBER_ID
+		FROM TODO_MEMBER
+		WHERE MEMBER_ID = ?
+	</entry>
+
+	<entry key="insertCertificationNumber">
+		INSERT INTO TODO_CERTIFICATION
+		VALUES(?, ?, DEFAULT)
+	</entry>
+
+	<entry key="updateCertificationNumber">
+		UPDATE TODO_CERTIFICATION SET
+		C_NUMBER = ?
+		WHERE MAIL = ?
+	</entry>
+
+	<entry key="checkNumDubCheck">
+		SELECT MEMBER_MAIL
+		FROM TODO_MEMBER
+		WHERE MEMBER_MAIL =
+		?
+	</entry>
+
+	<entry key="nameDubCheck">
+		SELECT MEMBER_NAME
+		FROM TODO_MEMBER
+		WHERE MEMBER_NAME =
+		?
+	</entry>
 </properties>

@@ -18,4 +18,14 @@ public class MemberService {
 		
 		return loginMember;
 	}
+
+	public int signUp(Member mem) throws Exception {
+		Connection conn = getConnection();
+		
+		int result = dao.signUp(conn, mem);
+		
+		close(conn);
+		
+		return result;
+	}
 }
