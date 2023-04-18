@@ -26,6 +26,7 @@ const checkObj = {
 };
 
 inputMail.addEventListener("input", (e) => {
+    console.log(e.target.value);
     const regExp = /^[\w\-\_\.]{4,}@[\w\-\_]+(\.\w+){1,3}$/;
 
     if (e.target.value.length == 0) {
@@ -35,14 +36,39 @@ inputMail.addEventListener("input", (e) => {
     }
 
     if (regExp.test(e.target.value)) {
-        // 이메일 중복여부 구현
+        $.ajax({
+            url: "signUp/mailDubCheck",
+            data: { "mail": e.target.value },
+
+            success: (result) => {
+                if (result == 0) {
+                    mailMessage.innerText = "";
+                    mailMessage.classList.remove("success", "error");
+                    checkObj.inputMail = true;
+                } else {
+                    mailMessage.innerText = "사용중인 메일 주소입니다.";
+                    mailMessage.classList.remove("success");
+                    mailMessage.classList.add("error");
+                    checkObj.inputMail = false;
+                }
+            },
+            error: () => {
+                console.log("이메일 발송 실패");
+                console.log(request.status);
+            }
+        });
+
     } else {
         mailMessage.innerText = "메일 형식이 틀립니다.";
-        checkObj.inputMail = false;
         mailMessage.classList.remove("success");
         mailMessage.classList.add("error");
+        checkObj.inputMail = false;
     }
 });
+
+let checkInterval;
+let min = 4;
+let sec = 59;
 
 inputMailBtn.addEventListener("click", () => {
     if (checkObj.inputMail == false) {
@@ -51,11 +77,51 @@ inputMailBtn.addEventListener("click", () => {
         mailMessage.classList.add("error");
         inputMail.focus();
     } else {
-        mailMessage.innerText = "인증번호가 발송되었습니다.";
-        mailMessage.classList.remove("error");
-        mailMessage.classList.add("success");
+        $.ajax({
+            url: "signUp/sendMail",
+            data: { "mail": inputMail.value },
 
-        // 인증번호 발송 구현
+            success: (result) => {
+                if (result > 0) {
+                    mailMessage.innerText = "인증번호가 발송되었습니다.";
+                    mailMessage.classList.remove("error");
+                    mailMessage.classList.add("success");
+                    checkObj.sendMail = true;
+                }
+            },
+            error: () => {
+                console.log("send mail error");
+                console.log(reqest.status);
+            }
+        });
+
+        checkNumMessage.classList.remove("success", "error");
+        checkNumMessage.innerText = "5:00";
+        let min = 4;
+        let sec = 59;
+
+        checkInterval = setInterval(function () {
+            if (sec < 10) {
+                sec = "0" + sec;
+            }
+
+            checkNumMessage.innerText = min + ":" + sec;
+
+            if (Number(sec) === 0) {
+                min--;
+                sec = 59;
+            } else {
+                sec--;
+            }
+
+            if (min === -1) {
+                checkNumMessage.innerText = "인증번호가 만료되었습니다.";
+                checkNumMessage.classList.remove("success");
+                checkNumMessage.classList.add("error");
+
+                clearInterval(checkInterval);
+            }
+        }, 1000);
     }
 });
 
@@ -66,23 +132,74 @@ checkNumBtn.addEventListener("click", () => {
         checkNumMessage.classList.add("error");
     }
 
-    // 인증번호 확인 구현
+    $.ajax({
+        url: "signUp/checkNum",
+        data: { "checkNum": checkNum.value, "mail": inputMail.value },
+
+        success: (result) => {
+            if (result == 1) {
+                clearInterval(checkInterval);
+
+                checkNumMessage.innerText = "인증되었습니다.";
+                checkNumMessage.classList.remove("error");
+                checkNumMessage.classList.add("success");
+                checkObj.checkNum = true;
+                inputMail.disabled = true;
+                // ----------------------------------- readonly로 바꿔야됨
+            } else if (result == 2) {
+                checkNumMessage.innerText = "만료된 인증번호 입니다.";
+                checkNumMessage.classList.remove("success");
+                checkNumMessage.classList.add("error");
+                checkObj.checkNum = false;
+            } else {
+                checkNumMessage.innerText = "인증번호가 일치하지 않습니다.";
+                checkNumMessage.classList.remove("success");
+                checkNumMessage.classList.add("error");
+                checkObj.checkNum = false;
+            }
+        },
+        error: () => {
+            console.log("checkNum error");
+            console.log(request.status);
+        }
+    })
 });
 
 inputId.addEventListener("input", (e) => {
-    const regExp = /^[\a-z\-\_]{5,20}$/;
-    
-    if(!regExp.test(e.target.value)) {
+    const regExp = /^[\w\-\_]{5,20}$/;
+
+    if (!regExp.test(e.target.value)) {
         inputIdMessage.innerText = "5~20자의 영문 소문자, 숫자와 특수기호(_), (-)만 사용 가능합니다.";
         inputIdMessage.classList.remove("success", "error");
         checkObj.inputId = false;
     } else {
-        // 아이디 중복 여부 구현
+        $.ajax({
+            url: "signUp/idDubCheck",
+            data: { "id": inputId.value },
+
+            success: (result) => {
+                if (result == 0) {
+                    inputIdMessage.innerText = "사용가능한 아이디 입니다.";
+                    inputIdMessage.classList.remove("error");
+                    inputIdMessage.classList.add("success");
+                    checkObj.inputId = true;
+                } else {
+                    inputIdMessage.innerText = "사용중인 아이디 입니다.";
+                    inputIdMessage.classList.remove("success");
+                    inputIdMessage.classList.add("error");
+                    checkObj.inputId = false;
+                }
+            },
+            error: () => {
+                console.log("id error");
+                console.log(request.status);
+            }
+        })
     }
 
 });
 
-inputPw.addEventListener("input", (e)=> {
+inputPw.addEventListener("input", (e) => {
     const regExp = /^(?=.*[\-\_\!\@\#])[\w\-\_\!\@\#]{6,30}$/;
     console.log(e.target.value);
 
@@ -98,7 +215,7 @@ inputPw.addEventListener("input", (e)=> {
 });
 
 confirmPw.addEventListener("input", (e) => {
-    if(e.target.value == inputPw.value && checkObj.inputPw) {
+    if (e.target.value == inputPw.value && checkObj.inputPw) {
         confirmPwMessage.innerText = "비밀번호가 일치합니다.";
         confirmPwMessage.classList.remove("error");
         confirmPwMessage.classList.add("success");
@@ -119,34 +236,55 @@ inputName.addEventListener("input", (e) => {
         inputNameMessage.classList.remove("success", "error");
         checkObj.inputName = false;
     } else {
-        // 이름 중복 확인
+        $.ajax({
+            url: "signUp/nameDubCheck",
+            data: { "name": inputName.value },
+
+            success: (result) => {
+                if (result == 0) {
+                    inputNameMessage.innerText = "사용가능한 이름입니다.";
+                    inputNameMessage.classList.remove("error");
+                    inputNameMessage.classList.add("success");
+                    checkObj.inputName = true;
+                } else {
+                    inputNameMessage.innerText = "사용중인 이름입니다.";
+                    inputNameMessage.classList.remove("success");
+                    inputNameMessage.classList.add("error");
+                    checkObj.inputName = false;
+                }
+            },
+            error: () => {
+                console.log("name error");
+                console.log(request.status);
+            }
+        });
     }
 });
 
 function signUpValidate() {
     let str;
 
-    for(let key in checkObj) {
-        if(!checkObj[key]) {
+    for (let key in checkObj) {
+        if (!checkObj[key]) {
             switch (key) {
-                case "inputMail": str="메일 주소가";
+                case "inputMail": str = "메일 주소가";
                     break;
 
-                case "sendMail": str="인증 번호가";
+                case "sendMail": str = "인증 번호가";
                     break;
-                case "checkNum": str="인증 번호가";
+                case "checkNum": str = "인증 번호가";
                     break;
-                case "inputId": str="아이디가";
+                case "inputId": str = "아이디가";
                     break;
-                case "inputPw": str="비밀번호가";
+                case "inputPw": str = "비밀번호가";
                     break;
-                case "confirmPw": str="비밀번호가";
+                case "confirmPw": str = "비밀번호가";
                     break;
-                case "inputName": str="이름이";
+                case "inputName": str = "이름이";
                     break;
             }
 
-            str+= " 유효하지 않습니다.";
+            str += " 유효하지 않습니다.";
 
             alert(str);
 

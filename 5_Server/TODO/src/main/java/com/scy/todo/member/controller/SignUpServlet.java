@@ -23,9 +23,9 @@ public class SignUpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Member mem = new Member();
 		
-		mem.setMemberId(req.getParameter("inputMail"));
-		mem.setMemberPw(req.getParameter("inputId"));
-		mem.setMemberMail(req.getParameter("inputPw"));
+		mem.setMemberId(req.getParameter("inputId"));
+		mem.setMemberPw(req.getParameter("inputPw"));
+		mem.setMemberMail(req.getParameter("inputMail"));
 		mem.setMemberName(req.getParameter("inputName"));
 		
 		HttpSession session = req.getSession();

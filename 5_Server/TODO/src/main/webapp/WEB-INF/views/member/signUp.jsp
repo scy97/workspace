@@ -16,7 +16,7 @@
     <main>
         <div>회원 가입</div>
 
-        <form action="member/signUp" method="post" class="signUpForm" onsubmit="signUpValidate()">
+        <form action="signUp" method="post" class="signUpForm" onsubmit="signUpValidate()">
             <label for="inputMail">메일</label>
             <section>
                 <input type="email" name="inputMail" id="inputMail" placeholder="메일" autocomplete="off" autofocus

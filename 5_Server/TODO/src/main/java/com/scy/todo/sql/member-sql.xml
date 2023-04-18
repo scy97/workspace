@@ -8,8 +8,7 @@
 		FROM TODO_MEMBER
 		WHERE MEMBER_ID = ?
 		AND MEMBER_PW = ?
-		AND SECESSION_FL =
-		'N'
+		AND SECESSION_FL = 'N'
 	</entry>
 
 	<entry key="signUp">
@@ -18,40 +17,47 @@
 	</entry>
 
 	<entry key="mailDubCheck">
-		SELECT MEMBER_MAIL
+		SELECT COUNT(*)
 		FROM TODO_MEMBER
-		WHERE MEMBER_MAIL =
-		?
+		WHERE MEMBER_MAIL = ?
 	</entry>
 
 	<entry key="idDubCheck">
-		SELECT MEMBER_ID
+		SELECT COUNT(*)
 		FROM TODO_MEMBER
 		WHERE MEMBER_ID = ?
 	</entry>
 
-	<entry key="insertCertificationNumber">
+	<entry key="insertCertification">
 		INSERT INTO TODO_CERTIFICATION
 		VALUES(?, ?, DEFAULT)
 	</entry>
 
-	<entry key="updateCertificationNumber">
+	<entry key="updateCertification">
 		UPDATE TODO_CERTIFICATION SET
-		C_NUMBER = ?
+		C_NUMBER = ?,
+		ISSUE_DATE = DEFAULT
 		WHERE MAIL = ?
 	</entry>
 
-	<entry key="checkNumDubCheck">
-		SELECT MEMBER_MAIL
-		FROM TODO_MEMBER
-		WHERE MEMBER_MAIL =
-		?
+	<entry key="checkNum">
+		SELECT
+		CASE WHEN (SELECT '1' FROM TODO_CERTIFICATION
+		WHERE MAIL = ?
+		AND C_NUMBER = ?) = 1
+
+		THEN NVL( (SELECT '1' FROM TODO_CERTIFICATION
+		WHERE MAIL = ?
+		AND ISSUE_DATE + (INTERVAL '10' MINUTE) >= SYSDATE) , '2')
+
+		ELSE '3'
+		END
+		FROM DUAL
 	</entry>
 
 	<entry key="nameDubCheck">
-		SELECT MEMBER_NAME
+		SELECT COUNT(*)
 		FROM TODO_MEMBER
-		WHERE MEMBER_NAME =
-		?
+		WHERE MEMBER_NAME = ?
 	</entry>
 </properties>
