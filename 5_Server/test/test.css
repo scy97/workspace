@@ -1,0 +1,8 @@
+.slider {
+    transition: all 1s ease-in-out;
+    height: 0px;
+}
+
+.open {
+    height: 400px;
+}

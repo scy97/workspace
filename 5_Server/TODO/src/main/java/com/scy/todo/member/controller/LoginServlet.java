@@ -17,20 +17,18 @@ import com.scy.todo.member.model.vo.Member;
 public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {		
+		MemberService service = new MemberService();
+		HttpSession session = req.getSession();
 		Member member = new Member();
 		
 		member.setMemberId(req.getParameter("inputId"));
 		member.setMemberPw(req.getParameter("inputPw"));
 		
 		try {
-			MemberService service = new MemberService();
-			
 			Member loginMember = service.login(member);
 			
-			HttpSession session = req.getSession();
 			if (loginMember != null) {
 				session.setAttribute("loginMember", loginMember);
-				
 				session.setMaxInactiveInterval(3600);
 				
 			} else {
@@ -38,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			
 			resp.sendRedirect(req.getContextPath() + "/main");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -18,19 +18,19 @@ import oracle.net.aso.l;
 public class CheckListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		TodoService service = new TodoService();
+		HttpSession session = req.getSession();
+		
 		int listNo = Integer.parseInt(req.getParameter("listNo"));
 		boolean listCheck = Boolean.valueOf(req.getParameter("listCheck"));
 		
 		try {
-			TodoService service = new TodoService();
-			
 			int result = service.CheckList(listNo, listCheck);
-			
-			HttpSession session = req.getSession();
 			
 			if(result == 0) {
 				session.setAttribute("message", "문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

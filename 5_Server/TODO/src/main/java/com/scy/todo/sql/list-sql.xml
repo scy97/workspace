@@ -5,20 +5,19 @@
 
 	<entry key="addList">
 		INSERT INTO TODO_LIST
-		VALUES(SEQ_TODO_LIST_NO.NEXTVAL,
-		?, DEFAULT, DEFAULT, '1')
+		VALUES(SEQ_TODO_LIST_NO.NEXTVAL, ?, DEFAULT, DEFAULT, ?)
 	</entry>
 
 	<entry key="loadList">
 		SELECT LIST_NO, LIST_TEXT, LIST_CHECK
 		FROM TODO_LIST
-		WHERE MEMBER_NO = 1
+		WHERE MEMBER_NO = ?
 	</entry>
 
 	<entry key="remove">
 		DELETE
 		FROM TODO_LIST
-		WHERE MEMBER_NO = 1
+		WHERE MEMBER_NO = ?
 		AND LIST_NO = ?
 	</entry>
 
@@ -31,7 +30,7 @@
 	<entry key="optionLoad">
 		SELECT LIST_NO, LIST_TEXT, LIST_CHECK
 		FROM TODO_LIST
-		WHERE MEMBER_NO = 1
+		WHERE MEMBER_NO = ?
 		AND LIST_CHECK = ?
 	</entry>
 </properties>

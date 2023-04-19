@@ -21,6 +21,8 @@ public class SignUpServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberService service = new MemberService();
+		HttpSession session = req.getSession();
 		Member mem = new Member();
 		
 		mem.setMemberId(req.getParameter("inputId"));
@@ -28,10 +30,8 @@ public class SignUpServlet extends HttpServlet {
 		mem.setMemberMail(req.getParameter("inputMail"));
 		mem.setMemberName(req.getParameter("inputName"));
 		
-		HttpSession session = req.getSession();
 		
 		try {
-			MemberService service = new MemberService();
 			
 			int result = service.signUp(mem);
 			

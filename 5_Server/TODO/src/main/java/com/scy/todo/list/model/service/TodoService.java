@@ -10,10 +10,10 @@ import com.scy.todo.list.model.vo.Todo;
 public class TodoService {
 	private TodoDAO dao = new TodoDAO();
 
-	public int addList(String inputText) throws Exception {
+	public int addList(String inputText, int loginMemberNo) throws Exception {
 		Connection conn = getConnection();
 		
-		int result = dao.addList(conn, inputText);
+		int result = dao.addList(conn, inputText, loginMemberNo);
 		
 		if (result > 0) {
 			commit(conn);
@@ -26,20 +26,20 @@ public class TodoService {
 		return result;
 	}
 
-	public List<Todo> loadList(String option) throws Exception {
+	public List<Todo> loadList(String option, int loginMemberNo) throws Exception {
 		Connection conn = getConnection();
 		
-		List<Todo> todoList = dao.loadList(conn, option);
+		List<Todo> todoList = dao.loadList(conn, option, loginMemberNo);
 		
 		close(conn);
 		
 		return todoList;
 	}
 
-	public int removeList(int listNo) throws Exception {
+	public int removeList(int listNo, int loginMemberNo) throws Exception {
 		Connection conn = getConnection();
 		
-		int result = dao.removeList(conn, listNo);
+		int result = dao.removeList(conn, listNo, loginMemberNo);
 		
 		if (result > 0) {
 			commit(conn);

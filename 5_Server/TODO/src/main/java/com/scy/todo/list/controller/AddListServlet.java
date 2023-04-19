@@ -10,23 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.scy.todo.list.model.service.TodoService;
+import com.scy.todo.member.model.vo.Member;
 
 @WebServlet("/list/add")
 public class AddListServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String inputText = req.getParameter("inputText");
-		
-		System.out.println(inputText);
-		
 		TodoService service = new TodoService();
+		HttpSession session = req.getSession();
+		
+		String inputText = req.getParameter("inputText");
+		int loginMemberNo = ((Member) session.getAttribute("loginMember")).getMemberNo();
+		
 				
 		int result = 0;
 		
 		try {
-			HttpSession session = req.getSession();
-			
-			result = service.addList(inputText);
+			result = service.addList(inputText, loginMemberNo);
 			
 			if (result == 0) {
 				session.setAttribute("message", "리스트 추가실패");

@@ -14,15 +14,16 @@ import com.scy.todo.member.model.service.MemberService;
 public class CheckNumServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberService service = new MemberService();
+		
 		String mail = req.getParameter("mail");
 		String checkNum = req.getParameter("checkNum");
 		
 		try {
-			MemberService service = new MemberService();
-			
 			int result = service.checkNum(mail, checkNum);
 			
 			resp.getWriter().print(result);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

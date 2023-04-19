@@ -30,12 +30,13 @@ public class TodoDAO {
 			String filePath = TodoDAO.class.getResource("/com/scy/todo/sql/list-sql.xml").getPath();
 
 			prop.loadFromXML(new FileInputStream(filePath));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public int addList(Connection conn, String inputText) throws Exception {
+	public int addList(Connection conn, String inputText, int loginMemberNo) throws Exception {
 		int result = 0;
 
 		try {
@@ -43,6 +44,7 @@ public class TodoDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, inputText);
+			pstmt.setInt(2, loginMemberNo);
 
 			result = pstmt.executeUpdate();
 
@@ -53,7 +55,7 @@ public class TodoDAO {
 		return result;
 	}
 
-	public List<Todo> loadList(Connection conn, String option) throws Exception {
+	public List<Todo> loadList(Connection conn, String option, int loginMemberNo) throws Exception {
 		List<Todo> todoList = new ArrayList<>();
 		String sql = null;
 		
@@ -63,18 +65,21 @@ public class TodoDAO {
 			case "all":
 				sql = prop.getProperty("loadList");
 				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, loginMemberNo);
 				break;
 				
 			case "doing":
 				sql = prop.getProperty("optionLoad");
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "N");
+				pstmt.setInt(1, loginMemberNo);
+				pstmt.setString(2, "N");
 				break;
 				
 			case "done":
 				sql = prop.getProperty("optionLoad");
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "Y");
+				pstmt.setInt(1, loginMemberNo);
+				pstmt.setString(2, "Y");
 				break;
 			}
 			
@@ -88,26 +93,31 @@ public class TodoDAO {
 				todo.setListCheck(rs.getString("LIST_CHECK"));
 				todoList.add(todo);
 			}
+			
 		} finally {
 			close(pstmt);
 			close(rs);
 		}
+		
 		return todoList;
 	}
 
-	public int removeList(Connection conn, int listNo) throws Exception {
+	public int removeList(Connection conn, int listNo, int loginMemberNo) throws Exception {
 		int result = 0;
 		
 		try {
 			String sql = prop.getProperty("remove");
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, listNo);
+			pstmt.setInt(1, loginMemberNo);
+			pstmt.setInt(2, listNo);
 			
 			result = pstmt.executeUpdate();
+			
 		} finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 
@@ -129,9 +139,11 @@ public class TodoDAO {
 			pstmt.setInt(2, listNo);
 			
 			result = pstmt.executeUpdate();
+			
 		} finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 

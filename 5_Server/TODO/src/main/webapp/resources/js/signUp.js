@@ -144,8 +144,7 @@ checkNumBtn.addEventListener("click", () => {
                 checkNumMessage.classList.remove("error");
                 checkNumMessage.classList.add("success");
                 checkObj.checkNum = true;
-                inputMail.disabled = true;
-                // ----------------------------------- readonly로 바꿔야됨
+                inputMail.readOnly = true;
             } else if (result == 2) {
                 checkNumMessage.innerText = "만료된 인증번호 입니다.";
                 checkNumMessage.classList.remove("success");
