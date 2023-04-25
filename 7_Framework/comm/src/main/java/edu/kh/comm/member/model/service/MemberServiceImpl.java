@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member login(Member inputMember) {
 		Member loginMember = dao.login(inputMember);
-		return null;
+		return loginMember;
 	}
 
 }
