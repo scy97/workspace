@@ -1,6 +1,11 @@
 package edu.kh.comm.member.model.service;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import edu.kh.comm.member.model.dao.MemberDAO;
@@ -11,6 +16,11 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private MemberDAO dao;
+	
+	@Autowired // 암호화를 위한 bcrypt 객체 의존성 주입(DI)
+	private BCryptPasswordEncoder bcrypt;
+	
+	private Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	
 	// Connection을 service에서 얻어왔었던 이유
 	
@@ -25,8 +35,71 @@ public class MemberServiceImpl implements MemberService {
 	// 로그인 서비스 구현
 	@Override
 	public Member login(Member inputMember) {
+		
+		// 전달받은 비밀번호를 암호화하여
+		// DB에서 조회한 비밀번호와 비교 (DB에서 비교 X)
+		
+		// sha 방식 암호화
+		// A회원 / 비밀번호 1234 -> 암호화 : abcd
+		// B회원 / 비밀번호 1234 -> 암호화 : abcd (암호화시 변경된 내용이 같음)
+		
+		// Bcrypt 암호화 : 암호화 하기 전에 salt를 추가하여 변형된 상태로 암호화를 진행
+		// A회원 / 비밀번호 1234 -> 아ㅣㅁ호화 : abcd
+		// B회원 / 비밀번호 1234 -> 암호화 : !sd2
+		
+		// * 매번 암호화되는 비밀번호가 달려젓 DB에서 직접 비교 불가능
+		// 대신 Bcrypt 암호화를 지원하는 객체가
+		// 이를 비교하는 기능(메서드) 가지고 있어서 이를 활용하면 됩니다!
+		
+		// ** Bcrypt 암호화를 사용하기 위해 이를 지원하는 Spring-security 모듈 추가 **
+				// 원래 비밀번호 (평문)				/		암호화된 비밀번호
+		logger.debug(inputMember.getMemberPw() + " / " + bcrypt.encode(inputMember.getMemberPw()));
+//		logger.debug(inputMember.getMemberPw() + " / " + bcrypt.encode(inputMember.getMemberPw()));
+//		logger.debug(inputMember.getMemberPw() + " / " + bcrypt.encode(inputMember.getMemberPw()));
+//		logger.debug(inputMember.getMemberPw() + " / " + bcrypt.encode(inputMember.getMemberPw()));
+//		logger.debug(inputMember.getMemberPw() + " / " + bcrypt.encode(inputMember.getMemberPw()));
+		
 		Member loginMember = dao.login(inputMember);
+		
+		// loginMember == null : 일치하는 이메일이 없다.
+		
+		if(loginMember != null) { // 일치하는 이메일을 가진 회원 정보가 있을 경우
+								// 평문						, DB에서 조회한 암호화된 비밀번호 -> 같으면 true
+			if (bcrypt.matches(inputMember.getMemberPw(), loginMember.getMemberPw())) { // 비밀번호가 일치할 경우
+				loginMember.setMemberPw(null); // 비교 끝났으면 비밀번호 지우기
+			} else { // 비밀번호가 일치하지 않을 경우
+				loginMember = null;
+			}
+		}
+		
 		return loginMember;
+	}
+
+	// 이메일 중복검사 서비스 구현
+	@Override
+	public int emailDupCheck(String memberEmail) {
+		return dao.emailDupCheck(memberEmail);
+	}
+	
+	// 닉네임 중복검사 서비스 구현
+	@Override
+	public int nicknameDupCheck(String memberNickname) {
+		return dao.nicknameDupCheck(memberNickname);
+	}
+
+	@Override
+	public int signUp(Member inputMember) {
+		return dao.signUp(inputMember);
+	}
+
+	@Override
+	public Member selectOne(String memberEmail) {
+		return dao.selectOne(memberEmail);
+	}
+
+	@Override
+	public List selectAll() {
+		return dao.selectAll();
 	}
 
 }
