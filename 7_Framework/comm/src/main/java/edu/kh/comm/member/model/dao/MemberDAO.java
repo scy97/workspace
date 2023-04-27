@@ -64,6 +64,9 @@ public class MemberDAO {
 	}
 
 	public int signUp(Member inputMember) {
+		// INSERT, UPDATE, DELETE 반환값 int 고정
+		// -> mapper에서도 resultType 항상 _int 고정
+		// -> resultType 생략 가능(묵시적으로 _int)
 		return sqlSession.insert("memberMapper.signUp", inputMember);
 	}
 
@@ -71,7 +74,7 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectOne", memberEmail);
 	}
 
-	public List<Object> selectAll() {
+	public List<Member> selectAll() {
 		return sqlSession.selectList("memberMapper.selectAll");
 	}
 

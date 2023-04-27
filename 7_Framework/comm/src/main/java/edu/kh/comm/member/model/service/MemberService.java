@@ -19,20 +19,20 @@ public interface MemberService {
 	 * @param inputMember
 	 * @return
 	 */
-	public Member login(Member inputMember);
+	public abstract Member login(Member inputMember);
 
 	/** 이메일 중복검사
 	 * @param memberEmail
 	 * @return
 	 */
-	public int emailDupCheck(String memberEmail);
+	public abstract int emailDupCheck(String memberEmail);
 
-	public int nicknameDupCheck(String memberNickname);
+	public abstract int nicknameDupCheck(String memberNickname);
 
-	public int signUp(Member inputMember);
+	public abstract int signUp(Member inputMember);
 
-	public Member selectOne(String memberEmail);
+	public abstract Member selectOne(String memberEmail);
 
-	public List selectAll();
+	public abstract List<Member> selectAll();
 
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -229,16 +230,40 @@ public class MemberController {
 
 	// 회원 가입 (sqlSession.insert()) --> <insert></insert>
 	@PostMapping("/signUp")
-	public String signUp(@ModelAttribute Member inputMember, RedirectAttributes ra) {
-		int result = service.signUp(inputMember);
+	public String signUp(Member inputMember, String[] memberAddress, RedirectAttributes ra) {
+		// 같은 name을 가진 주소가 하나의 문자열로 합쳐서 세팅되어 있다.
+		// -> 도로명 주소에 "," 기호가 포함되는 경우가 있어 이를 구분자로 사용할 수 없음.
 		
-		if (result > 0) {
-			ra.addFlashAttribute("message", "회원가입에 성공했습니다.");
-		} else {
-			ra.addFlashAttribute("message", "회원가입에 실패했습니다.");
+		// String[] memberAddress :
+		// name이 memberAddress인 파라미터의 값을 모두 배열에 담아서 반환
+		
+		inputMember.setMemberAddress(String.join(",,", memberAddress));
+		// String.join("구분자", 배열)
+		// 배열을 하나의 문자열로 합치는 메서드
+		// 중간에 구분자가 포함되어 문자열이 생성된다.
+		// [a,b,c] - join 진행 -> "a,,b,,c"
+		
+		if (inputMember.getMemberAddress().equals(",,,,")) { // 주소가 입력되지 않은 경우
+			inputMember.setMemberAddress(null); // null로 변환
 		}
 		
-		return "redirect:/";
+		// 회원 가입 서비스 호출
+		int result = service.signUp(inputMember);
+		
+		String message = null;
+		String path = null;
+		
+		if (result > 0) {
+			message = "회원 가입 성공!!";
+			path = "redirect:/"; // 메인 페이지
+		} else {
+			message = "회원 가입 실패";
+			path = "redirect:/member/signUp";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return path;
 	}
 
 	// 회원 1명 정보 조회(ajax) (sqlSession.selectOne())
@@ -250,14 +275,35 @@ public class MemberController {
 		return new Gson().toJson(member);
 	}
 	
-	// 회원 목록 조회(ajax) 
+	// 회원 목록 조회(ajax) (sqlSession.selectList())
 	@ResponseBody
 	@GetMapping("/selectAll")
 	public String selectAll() {
-		List list = service.selectAll();
+		List<Member> list = service.selectAll();
 		
 		return new Gson().toJson(list);
 	}
+	
+	// 스프링 예외 처리 방법 (3가지, 중복 사용 가능)
+	
+	// 1 순위 : 메서드 별로 예외처리 (try - catch / throws)
+	
+	// 2 순위 : 하나의 컨트롤러에서 발생하는 예외를 모아서 처리
+	// -> @ExceptionHandler(메서드에 작성)
+	
+	// 3 순위 : 전역(웹 어플리케이션)에서 발생하는 예외를 모아서 처리
+	// -> @ControllerAdvice (클래스에 작성)
+	
+	// 회원 컨트롤러에서 발생하는 모든 예외를 모아서 처리
+//	@ExceptionHandler(Exception.class)
+//	public String exceptionHandler(Exception e, Model model) {
+//		e.printStackTrace();
+//		
+//		model.addAttribute("errorMessage", "서비스 이용 중 문제가 발생했습니다.");
+//		model.addAttribute("e", e);
+//		
+//		return "common/error.jsp";
+//	}
 }
 
 

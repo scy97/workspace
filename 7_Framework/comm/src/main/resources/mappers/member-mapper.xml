@@ -120,7 +120,8 @@
 	</insert>
 	
 	<select id="selectOne" parameterType="string" resultMap="member_rm">
-		SELECT MEMBER_EMAIL, MEMBER_NICK, MEMBER_TEL, MEMBER_ADDR, ENROLL_DT
+		SELECT MEMBER_EMAIL, MEMBER_NICK, MEMBER_TEL, MEMBER_ADDR, 
+		TO_CHAR(ENROLL_DT, 'YYYY"년" MM"월" DD"일"') ENROLL_DT
 		FROM MEMBER_S
 		WHERE MEMBER_EMAIL = #{memberEmail}
 	</select>
@@ -128,5 +129,7 @@
 	<select id="selectAll" resultMap="member_rm">
 		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICK
 		FROM MEMBER_S
+		WHERE SECESSION_FL = 'N'
+		ORDER BY MEMBER_NO
 	</select>
 </mapper>

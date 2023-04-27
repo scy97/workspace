@@ -75,13 +75,13 @@ public class MemberServiceImpl implements MemberService {
 		return loginMember;
 	}
 
-	// 이메일 중복검사 서비스 구현
+	// 이메일 중복검사 서비스
 	@Override
 	public int emailDupCheck(String memberEmail) {
 		return dao.emailDupCheck(memberEmail);
 	}
 	
-	// 닉네임 중복검사 서비스 구현
+	// 닉네임 중복검사 서비스
 	@Override
 	public int nicknameDupCheck(String memberNickname) {
 		return dao.nicknameDupCheck(memberNickname);
@@ -89,6 +89,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int signUp(Member inputMember) {
+		
+		// 비밀번호 암호화(bcrypt)
+		String encPw = bcrypt.encode(inputMember.getMemberPw());
+		
+		// 암호화된 비밀번호로 다시 세팅
+		inputMember.setMemberPw(encPw);
+		
 		return dao.signUp(inputMember);
 	}
 
@@ -98,7 +105,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List selectAll() {
+	public List<Member> selectAll() {
 		return dao.selectAll();
 	}
 
