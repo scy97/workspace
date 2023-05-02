@@ -98,3 +98,4 @@ your 131072x1 screen size is bogus. expect trouble
 2023-04-20 18:03:44,921 [Worker-7: Decoration Calculation] WARN  org.eclipse.jgit.util.FS_Win32 - null
 2023-04-20 19:40:44,687 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
 2023-04-20 19:40:46,817 [Worker-1: Decoration Calculation] WARN  org.eclipse.jgit.util.FS_Win32 - null
+2023-05-02 19:10:11,177 [Worker-5: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.
