@@ -108,7 +108,7 @@
             <div class="pagination-area">
 
                 <!-- 페이지네이션 a태그에 사용될 공통 주소를 저장한 변수 선언 -->
-                <c:set var="url" value="${boardCode}&cp="/>
+                <c:set var="url" value="${boardCode}?&cp="/>
 
 
                 <ul class="pagination">

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -136,9 +137,18 @@ public class BoardController {
 	// 게시글 작성 화면 전환
 	// 개행문자가 <br>로 되어있는 상태 -> textarea 출력하려면 \n 변경해야함
 	// -> Util.newLineClear() 메서드 사용!
+	@GetMapping("/list/write")
+	public String boardWrite() {
+		
+		return "board/boardWriteForm";
+	}
 	
 	// 게시글 작성 (삽입/수정)
 	// "/board/write/{boardCode}"
+	@PostMapping("/list/write")
+	public String boardWriteSummit() {
+		return "redirect:/";
+	}
 	
 	// 게시글 삭제
 }
