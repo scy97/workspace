@@ -21,4 +21,12 @@ public class ReplyDAO {
 	public int addReply(Map<String, Object> paramMap) {
 		return sqlSession.insert("replyMapper.addReply", paramMap);
 	}
+
+	public int deleteReply(int replyNo) {
+		return sqlSession.update("replyMapper.deleteReply", replyNo);
+	}
+
+	public int updateReply(Map<String, Object> paramMap) {
+		return sqlSession.update("replyMapper.updateReply", paramMap);
+	}
 }

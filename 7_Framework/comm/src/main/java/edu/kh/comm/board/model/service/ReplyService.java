@@ -11,4 +11,8 @@ public interface ReplyService {
 
 	int addReply(Map<String, Object> paramMap);
 
+	int deleteReply(int replyNo);
+
+	int updateReply(Map<String, Object> paramMap);
+
 }

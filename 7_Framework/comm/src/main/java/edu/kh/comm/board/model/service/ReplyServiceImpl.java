@@ -24,4 +24,14 @@ public class ReplyServiceImpl implements ReplyService {
 	public int addReply(Map<String, Object> paramMap) {
 		return dao.addReply(paramMap);
 	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return dao.deleteReply(replyNo);
+	}
+
+	@Override
+	public int updateReply(Map<String, Object> paramMap) {
+		return dao.updateReply(paramMap);
+	}
 }

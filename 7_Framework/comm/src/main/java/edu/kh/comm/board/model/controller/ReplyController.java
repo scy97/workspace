@@ -44,7 +44,16 @@ public class ReplyController {
 	public int addReply(@RequestParam Map<String, Object> paramMap) {
 		return service.addReply(paramMap);
 	}
+	
 	// 댓글 삭제
+	@GetMapping("/delete")
+	public int deleteReply(int replyNo) {
+		return service.deleteReply(replyNo);
+	}
 	
 	// 댓글 수정
+	@PostMapping("/update")
+	public int updateReply(@RequestParam Map<String, Object> paramMap) {
+		return service.updateReply(paramMap);
+	}
 }
