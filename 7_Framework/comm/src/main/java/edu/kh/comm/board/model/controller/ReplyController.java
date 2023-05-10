@@ -41,8 +41,8 @@ public class ReplyController {
 	
 	// 댓글 등록
 	@PostMapping("/insert")
-	public int addReply(@RequestParam Map<String, Object> paramMap) {
-		return service.addReply(paramMap);
+	public int addReply(Reply reply) {
+		return service.addReply(reply);
 	}
 	
 	// 댓글 삭제
@@ -53,7 +53,7 @@ public class ReplyController {
 	
 	// 댓글 수정
 	@PostMapping("/update")
-	public int updateReply(@RequestParam Map<String, Object> paramMap) {
-		return service.updateReply(paramMap);
+	public int updateReply(Reply reply) {
+		return service.updateReply(reply);
 	}
 }

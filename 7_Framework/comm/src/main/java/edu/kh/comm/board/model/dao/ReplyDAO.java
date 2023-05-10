@@ -14,19 +14,35 @@ public class ReplyDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	/** 댓글 목록 조회 서비스 DAO
+	 * @param boardNo
+	 * @return rList
+	 */
 	public List<Reply> selectReplyList(int boardNo) {
 		return sqlSession.selectList("replyMapper.selectReplyList", boardNo);
 	}
 
-	public int addReply(Map<String, Object> paramMap) {
-		return sqlSession.insert("replyMapper.addReply", paramMap);
+	/** 댓글 등록 DAO
+	 * @param reply
+	 * @return result
+	 */
+	public int addReply(Reply reply) {
+		return sqlSession.insert("replyMapper.addReply", reply);
 	}
 
+	/**
+	 * @param replyNo
+	 * @return result
+	 */
 	public int deleteReply(int replyNo) {
 		return sqlSession.update("replyMapper.deleteReply", replyNo);
 	}
 
-	public int updateReply(Map<String, Object> paramMap) {
-		return sqlSession.update("replyMapper.updateReply", paramMap);
+	/** 
+	 * @param reply
+	 * @return result
+	 */
+	public int updateReply(Reply reply) {
+		return sqlSession.update("replyMapper.updateReply", reply);
 	}
 }

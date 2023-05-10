@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="replyMapper">
 
+
 	<resultMap type="reply" id="reply_rm">
 		<id property="replyNo" column="REPLY_NO"/>
 		
@@ -14,29 +15,35 @@
 		<result property="parentReplyNo" column="PARENT_REPLY_NO"/>
 	</resultMap>
 
+	<!-- 댓글 목록 조회(계층형 구조) * 오라클DB만 사용가능 -->
 	<select id="selectReplyList" resultMap="reply_rm">
-		SELECT REPLY_NO, REPLY_CONTENT, CREATE_DT, PARENT_REPLY_NO, MEMBER_NICK, PROFILE_IMG, MEMBER_NO
-		FROM REPLY_S
-		JOIN MEMBER_S USING(MEMBER_NO)
-		WHERE BOARD_NO = ${boardNo}
-		AND REPLY_ST = 'N'
-		ORDER BY (CASE WHEN PARENT_REPLY_NO IS NULL THEN REPLY_NO 
-		WHEN PARENT_REPLY_NO IS NOT NULL THEN PARENT_REPLY_NO
-		END), REPLY_NO
+		SELECT LEVEL,  R.* FROM
+		    (SELECT REPLY_NO, REPLY_CONTENT,
+		        TO_CHAR(CREATE_DT, 'YYYY"년" MM"월" DD"일" HH24"시" MI"분" SS"초"') CREATE_DT,
+		        BOARD_NO, MEMBER_NO, MEMBER_NICK, PROFILE_IMG, PARENT_REPLY_NO, REPLY_ST
+		    FROM REPLY_S
+		    JOIN MEMBER_S USING(MEMBER_NO)
+		    WHERE BOARD_NO = #{boardNo}) R
+		
+		WHERE REPLY_ST = 'N'
+		START WITH PARENT_REPLY_NO IS NULL
+		CONNECT BY PRIOR REPLY_NO = PARENT_REPLY_NO
+		ORDER SIBLINGS BY REPLY_NO
 	</select>
 	
+	<!-- 댓글 등록 -->
 	<insert id="addReply">
 		INSERT INTO REPLY_S
 		VALUES (SEQ_REPLY_NO_S.NEXTVAL, #{replyContent}, DEFAULT, DEFAULT,
 		${memberNo}, ${boardNo}, 
-		<choose>
-			<when test="parentReplyNo != NULL">
-				${parentReplyNo}
-			</when>
-			<otherwise>
-				NULL
-			</otherwise>
-		</choose>
+		<!-- 일반 댓글인 경우 -->
+		<if test="parentReplyNo == 0">
+			NULL
+		</if>
+		<!-- 답글인 경우 -->
+		<if test="parentReplyNo != 0">
+			#{parentReplyNo}
+		</if>
 		)
 	</insert>
 	
