@@ -238,4 +238,9 @@ public class BoardServiceImpl implements BoardService {
 		public int deleteBoard(int boardNo) {
 			return dao.deleteBoard(boardNo);
 		}
+
+		@Override
+		public List<String> selectDBList() {
+			return dao.selectDBList();
+		}
 }

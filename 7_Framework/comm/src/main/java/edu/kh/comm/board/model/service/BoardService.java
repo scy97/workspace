@@ -61,4 +61,9 @@ public interface BoardService {
 	 */
 	int deleteBoard(int boardNo);
 
+	/** BOARD_IMG 이미지 목록 조회
+	 * @return dbList
+	 */
+	List<String> selectDBList();
+
 }

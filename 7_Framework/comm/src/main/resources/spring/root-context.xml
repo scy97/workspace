@@ -75,10 +75,6 @@
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-
-	
-	<!-- 	<tx:annotation-driven proxy-target-class="true"/> -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<!-- 
 	파일 업로드를 위한 MutipartResolver 구현체 CommonsMultipartResolver  bean 등록 

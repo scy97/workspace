@@ -134,4 +134,8 @@ public class BoardDAO {
 		public int deleteBoard(int boardNo) {
 		return sqlSession.update("boardMapper.deleteBoard", boardNo);
 	}
+
+	public List<String> selectDBList() {
+		return sqlSession.selectList("boardMapper.selectDBList");
+	}
 }
